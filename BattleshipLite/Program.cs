@@ -13,11 +13,61 @@ namespace BattleshipLite
         static void Main(string[] args)
         {
             WelcomeMessage();
-            PlayerInfoModel player1 = CreatePlayer("Player 1");
-            PlayerInfoModel player2 = CreatePlayer("Player 2");
+            PlayerInfoModel activePlayer = CreatePlayer("Player 1");
+            PlayerInfoModel opponent = CreatePlayer("Player 2");
+            PlayerInfoModel winner = null;
+
+            do
+            {
+                // Display grid from activePlayer on where they fired inside PlayerInfoModel
+                DisplayShotGrid(activePlayer);
+
+                // Ask activePlayer  for a shot
+                // Determine if it is a valid shot
+                // Determine shot results
+                // Determine if the game is over
+                // If over, set activePlayer as winner
+                // else, swap positions (activePlayer to opponent)
+
+            } while (winner == null);
 
 
             Console.ReadLine();
+        }
+
+        private static void DisplayShotGrid(PlayerInfoModel activePlayer)
+        {
+            string currentRow = activePlayer.ShotGrid[0].SpotLetter;
+
+
+
+            foreach (var gridSpot in activePlayer.ShotGrid)
+            {
+                if (gridSpot.SpotLetter != currentRow)
+                {
+                    Console.WriteLine();
+                    currentRow = gridSpot.SpotLetter;
+
+                }
+
+                if (gridSpot.Status == GridspotStatus.Empty)
+                {
+                    Console.Write($" { gridSpot.SpotLetter }{ gridSpot.SpotNumber } ");
+
+                }
+                else if (gridSpot.Status == GridspotStatus.Hit)
+                {
+                    Console.Write(" _X ");
+                }
+                else if (gridSpot.Status == GridspotStatus.Miss)
+                {
+                    Console.Write(" _O ");
+                }
+                else
+                {
+                    Console.Write(" _? ");
+                }
+            }
         }
 
         private static void WelcomeMessage()
